@@ -1,7 +1,7 @@
 [project]
 name = "physics-viz"
 version = "0.1.0"
-description = "Add your description here"
+description = "Physics textbook illustrations generated with matplotlib"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
