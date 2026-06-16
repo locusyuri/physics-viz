@@ -13,6 +13,7 @@ wheels/
 .atomcode
 .qoder
 .github
+.zcode
 
 # Generated output images (regenerated each run)
 output/  
