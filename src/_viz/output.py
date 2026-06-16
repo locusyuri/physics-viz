@@ -91,6 +91,18 @@ class Presets:
             "mathtext.fontset": "dejavuserif",
         },
     )
+    # Transparent PNG with serif fonts — default textbook style.
+    PNG_TEXTBOOK = OutputSpec(
+        figsize=(14.0, 7.0),
+        fmt="png",
+        dpi=300,
+        pad_inches=0.05,
+        rc_overrides={
+            "font.family": "serif",
+            "font.serif": ["DejaVu Serif", "Times New Roman", "serif"],
+            "mathtext.fontset": "dejavuserif",
+        },
+    )
     # High-resolution raster for print.
     PNG_PRINT = OutputSpec(figsize=(9.5, 9.0), fmt="png", dpi=300, pad_inches=0.02)
     # Lighter raster for web/screen.
