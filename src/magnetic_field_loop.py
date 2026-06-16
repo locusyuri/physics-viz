@@ -18,6 +18,8 @@ from matplotlib.patches import FancyArrowPatch
 from mpl_toolkits.mplot3d.art3d import Line3DCollection
 from mpl_toolkits.mplot3d.proj3d import proj_transform
 
+from _viz.output import Presets
+
 
 class Arrow3D(FancyArrowPatch):
     """A FancyArrowPatch that knows how to project itself in 3D.
@@ -49,7 +51,10 @@ R = 1.0          # loop radius
 Z = 1.4          # height of point P on the z-axis
 B_LEN = 1.1      # drawn length of the B vector (visual only)
 
-OUT_PATH = Path(__file__).resolve().parent.parent / "output" / "magnetic_field_loop.png"
+# Output configuration: pick a Presets.X here to reuse a whole render profile
+# (format, figure size, padding, dpi) across all model scripts.
+SPEC = Presets.PNG_PRINT
+OUT_DIR = Path(__file__).resolve().parent.parent / "output"
 
 
 # --------------------------------------------------------------------------- #
@@ -116,8 +121,8 @@ def add_vector(ax, start, vec, color, lw=2.2, mutate=18):
 # --------------------------------------------------------------------------- #
 # Build the figure
 # --------------------------------------------------------------------------- #
-def build_figure():
-    fig = plt.figure(figsize=(9.5, 9.0))
+def build_figure(spec=SPEC):
+    fig = spec.figure()
     ax = fig.add_subplot(111, projection="3d")
     ax.set_facecolor("white")
 
@@ -223,20 +228,15 @@ def build_figure():
     ax.set_zlim(-0.3, Z + B_LEN + 0.6)
     ax.set_box_aspect((1, 1, 1.0))
     ax.set_axis_off()
-    ax.set_title(
-        "Magnetic field on the axis of a circular current loop",
-        fontsize=14,
-        pad=12,
-    )
 
     return fig
 
 
 def main():
     fig = build_figure()
-    fig.savefig(OUT_PATH, dpi=300, bbox_inches="tight", facecolor="white")
+    path = SPEC.save(fig, OUT_DIR / "magnetic_field_loop")
     plt.close(fig)
-    print(f"Saved: {OUT_PATH}")
+    print(f"Saved: {path}")
 
 
 if __name__ == "__main__":
