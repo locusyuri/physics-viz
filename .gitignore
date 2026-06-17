@@ -17,3 +17,6 @@ wheels/
 
 # Generated output images (regenerated each run)
 output/  
+
+# Binary files
+*.bin
