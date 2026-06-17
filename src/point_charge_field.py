@@ -134,8 +134,8 @@ def draw_curves(ax):
                     xytext=(8, 8), textcoords="offset points",
                     fontsize=9, color=color)
 
-    # Legend (upper-right) — functions only, no k/q values.
-    ax.legend(loc="upper right", fontsize=9, frameon=True,
+    # Legend (lower-right) — functions only, no k/q values.
+    ax.legend(loc="lower right", fontsize=9, frameon=True,
               edgecolor="#cccccc", facecolor="white")
 
 
