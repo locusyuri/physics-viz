@@ -146,6 +146,10 @@ ax_v.annotate(f"V = {v:g}", xy=(r, v), xytext=(8, -14), textcoords="offset point
   blank line (`"\n\n"`) and bump `linespacing` to ~2.0, or the fraction
   collides with the line below. See `src/charged_cylindrical_shell.py` for the
   workaround.
+- **mathtext unsupported LaTeX commands** (raise `ParseSyntaxException`):
+  `\!` (negative thin space), `\tfrac`, `\textstyle`, `\substack`. Use `\frac`
+  (not `\tfrac`), drop `\!`, and `\dfrac` *is* OK in mathtext. If a formula
+  throws a parse error, suspect these first.
 - **Piecewise at a surface → E jumps.** If your shell/cylinder E curve looks
   smooth across $r=R$, you've silently joined the segments — that's
   physically wrong. Plot inside and outside as separate arrays.
