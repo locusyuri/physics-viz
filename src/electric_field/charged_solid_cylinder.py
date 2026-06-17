@@ -17,6 +17,8 @@ import numpy as np
 from matplotlib.lines import Line2D
 from matplotlib.patches import Circle, Ellipse, FancyArrowPatch
 
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from _viz.output import Presets
 
 # --------------------------------------------------------------------------- #

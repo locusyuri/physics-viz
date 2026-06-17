@@ -11,12 +11,15 @@ Run with:    uv run python src/magnetic_field_loop.py
 from __future__ import annotations
 
 from pathlib import Path
+import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import FancyArrowPatch
 from mpl_toolkits.mplot3d.art3d import Line3DCollection
 from mpl_toolkits.mplot3d.proj3d import proj_transform
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from _viz.output import Presets
 

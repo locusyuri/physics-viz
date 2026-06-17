@@ -11,10 +11,14 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import sys
+
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.lines import Line2D
 from matplotlib.patches import Circle, FancyArrowPatch, Wedge
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from _viz.output import Presets
 

@@ -9,12 +9,15 @@ Run with:    uv run python src/point_charge_field.py
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.lines import Line2D
 from matplotlib.patches import Circle, FancyArrowPatch
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from _viz.output import Presets
 
