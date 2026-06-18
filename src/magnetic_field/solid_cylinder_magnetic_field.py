@@ -15,7 +15,10 @@ Run with:    uv run python src/solid_cylinder_magnetic_field.py
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -43,7 +46,7 @@ GREY = "#888888"
 B_PRE = MU0 * I_TOTAL / (2 * np.pi)   # ≈ 1e-5 T·m
 
 SPEC = Presets.PNG_TEXTBOOK
-OUT_DIR = Path(__file__).resolve().parent.parent / "output"
+OUT_DIR = Path(__file__).resolve().parent.parent.parent / "output"
 
 
 class Arrow3D(FancyArrowPatch):
@@ -81,34 +84,36 @@ def draw_model(ax):
         fontsize=11, pad=8,
     )
 
+    S = 1.6  # visual scale for the 3D model panel
+
     # --- 3D semi-transparent grey cylinder (radius R, along z-axis) ---
-    cyl_h = 3.0
+    cyl_h = 3.0 * S
     theta_cyl = np.linspace(0, 2 * np.pi, 60)
     z_cyl = np.linspace(-cyl_h / 2, cyl_h / 2, 2)
     Theta_c, Z_c = np.meshgrid(theta_cyl, z_cyl)
-    X_c = R * np.cos(Theta_c)
-    Y_c = R * np.sin(Theta_c)
+    X_c = (R * S) * np.cos(Theta_c)
+    Y_c = (R * S) * np.sin(Theta_c)
     ax.plot_surface(X_c, Y_c, Z_c, color="#d5d8dc", alpha=0.30,
                     edgecolor=GREY, linewidth=0.3, shade=False)
 
     # --- Current density J arrows (red, pointing up, inside cylinder) ---
-    for x_off in (-0.5, 0.0, 0.5):
+    for x_off in (-0.5 * S, 0.0, 0.5 * S):
         for z_pos in np.linspace(-cyl_h / 3, cyl_h / 3, 4):
             ax.add_artist(Arrow3D(
-                (x_off, 0, z_pos - 0.15), (0, 0, 0.35),
+                (x_off, 0, z_pos - 0.15 * S), (0, 0, 0.35 * S),
                 arrowstyle="-|>", mutation_scale=9, color=RED, lw=1.8,
             ))
 
     # Current direction arrow on top.
     ax.add_artist(Arrow3D(
-        (0, 0, cyl_h / 2 + 0.1), (0, 0, 0.8),
+        (0, 0, cyl_h / 2 + 0.1 * S), (0, 0, 0.8 * S),
         arrowstyle="-|>", mutation_scale=14, color=RED, lw=2.5,
     ))
-    ax.text(0.15, 0.15, cyl_h / 2 + 0.7,
+    ax.text(0.15 * S, 0.15 * S, cyl_h / 2 + 0.7 * S,
             r"$I = J\pi R^2$", fontsize=11, color=RED, fontweight="bold")
 
     # --- Concentric magnetic field rings (z = 0 plane, ρ > R) ---
-    ring_radii = [1.4, 2.0, 2.6, 3.2]
+    ring_radii = [r * S for r in (1.4, 2.0, 2.6, 3.2)]
     for radius in ring_radii:
         theta = np.linspace(0, 2 * np.pi, 200)
         cx = radius * np.cos(theta)
@@ -128,7 +133,7 @@ def draw_model(ax):
                 linestyles="--", alpha=0.5))
         # Tangential direction arrow (CCW, +φ̂).
         a0 = np.deg2rad(200)
-        arc = 0.55
+        arc = 0.55 * S
         ax.add_artist(Arrow3D(
             (radius * np.cos(a0), radius * np.sin(a0), 0),
             (arc * (-np.sin(a0)), arc * np.cos(a0), 0),
@@ -136,44 +141,44 @@ def draw_model(ax):
         ))
 
     # --- B vector OUTSIDE (tangential, on smallest ring) ---
-    rho_out = 1.4
+    rho_out = 1.4 * S
     a_out = np.deg2rad(30)
     px, py = rho_out * np.cos(a_out), rho_out * np.sin(a_out)
-    tlen_out = 0.9
-    ax.add_artist(Arrow3D(
-        (px, py, 0),
-        (tlen_out * (-np.sin(a_out)), tlen_out * np.cos(a_out), 0),
-        arrowstyle="-|>", mutation_scale=16, color=GRN_DARK, lw=2.6,
-    ))
-    ax.text(px - 0.25, py + 0.95, 0.15,
+    tlen_out = 0.9 * S
+    # ax.add_artist(Arrow3D(
+    #     (px, py, 0),
+    #     (tlen_out * (-np.sin(a_out)), tlen_out * np.cos(a_out), 0),
+    #     arrowstyle="-|>", mutation_scale=16, color=GRN_DARK, lw=2.6,
+    # ))
+    ax.text(px - 0.25 * S, py + 0.95 * S, 0.15 * S,
             r"$\mathbf{B}(\rho)$", fontsize=13,
             color=GRN_DARK, fontweight="bold")
 
     # --- B vector INSIDE (tangential, shorter, B ∝ ρ) ---
-    rho_in = 0.55
+    rho_in = 0.55 * S
     a_in = np.deg2rad(30)
     px2, py2 = rho_in * np.cos(a_in), rho_in * np.sin(a_in)
-    tlen_in = 0.45   # shorter than outside
+    tlen_in = 0.45 * S   # shorter than outside
     ax.add_artist(Arrow3D(
         (px2, py2, 0),
         (tlen_in * (-np.sin(a_in)), tlen_in * np.cos(a_in), 0),
         arrowstyle="-|>", mutation_scale=13, color=GRN_DARK, lw=2.0,
     ))
-    ax.text(px2 - 0.55, py2 + 0.5, 0.15,
+    ax.text(px2 - 0.55 * S, py2 + 0.5 * S, 0.15 * S,
             r"$B \propto \rho$", fontsize=11,
             color=GRN_DARK, fontweight="bold")
 
     # --- ρ indicator (horizontal dashed from axis to outside B point) ---
     ax.plot([0, px], [0, py], [0, 0], color=GREY, ls="--", lw=1.0)
-    ax.text(px * 0.5 + 0.10, -0.25, 0.05, r"$\rho$",
+    ax.text(px * 0.5 + 0.10 * S, -0.25 * S, 0.05 * S, r"$\rho$",
             fontsize=12, color=GREY, style="italic")
 
     # --- R indicator (from axis to surface) ---
     ax.add_artist(Arrow3D(
-        (0, 0, 0.05), (R + 0.05, 0, 0),
+        (0, 0, 0.05 * S), (R * S + 0.05 * S, 0, 0),
         arrowstyle="-|>", mutation_scale=12, color="k", lw=1.0,
     ))
-    ax.text(R / 2, -0.25, 0.15, "R", fontsize=12, style="italic")
+    ax.text(R * S / 2, -0.25 * S, 0.15 * S, "R", fontsize=12, style="italic")
 
     # --- Legend ---
     handles = [
@@ -280,24 +285,24 @@ def draw_curves(ax_b, ax_a):
 
     # --- Formula boxes ---
     ax_b.text(
-        0.97, 0.68,
+        0.97, 0.58,
         r"$\mathbf{B(\rho):}$" "\n"
         r"$\quad \rho < R:\; B = \dfrac{\mu_0 J\rho}{2}$"
         "\n\n"
         r"$\quad \rho \geq R:\; B = \dfrac{\mu_0 I}{2\pi\rho}$",
         transform=ax_b.transAxes, ha="right", va="top",
-        fontsize=11, color=GRN, fontweight="bold", linespacing=2.0,
+        fontsize=11, color=GRN, fontweight="bold", linespacing=1.7,
         bbox=dict(boxstyle="round,pad=0.35", fc="white",
                   ec="#cccccc", lw=0.6),
     )
     ax_a.text(
-        0.97, 0.95,
+        0.97, 0.85,
         r"$\mathbf{A_z(\rho):}$" "\n"
         r"$\quad \rho < R:\; A_z = \dfrac{\mu_0 J(R^2-\rho^2)}{4}$"
         "\n\n"
         r"$\quad \rho \geq R:\; A_z = \dfrac{\mu_0 I}{2\pi}\ln\dfrac{R}{\rho}$",
         transform=ax_a.transAxes, ha="right", va="top",
-        fontsize=11, color=ORG, fontweight="bold", linespacing=2.0,
+        fontsize=11, color=ORG, fontweight="bold", linespacing=1.7,
         bbox=dict(boxstyle="round,pad=0.35", fc="white",
                   ec="#cccccc", lw=0.6),
     )
