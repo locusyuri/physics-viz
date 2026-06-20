@@ -9,3 +9,6 @@ Conventions for this repository. Follow these unless explicitly told otherwise.
 - Reuse the shared output presets in `src/_viz/output.py` (`Presets.*`) rather
   than hard-coding `figsize` / `dpi` / `facecolor` in each model script.
 - Annotations use English text. Default to serif fonts for textbook-style figures.
+- After running a script, do **not** call a vision tool to review the generated
+  image. As long as the figure is produced and saved without error, the task is
+  done — the user will review the output themselves.
