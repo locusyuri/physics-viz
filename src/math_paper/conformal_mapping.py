@@ -97,8 +97,8 @@ def build_figure():
     # Curved arrow between panels (figure-relative coordinates)
     ax_z.annotate(
         "",
-        xy=(0.66, 0.50), xycoords="figure fraction",
-        xytext=(0.36, 0.50), textcoords="figure fraction",
+        xy=(0.58, 0.50), xycoords="figure fraction",
+        xytext=(0.28, 0.50), textcoords="figure fraction",
         arrowprops=dict(
             arrowstyle="-|>",
             connectionstyle="arc3,rad=-0.3",
@@ -109,7 +109,7 @@ def build_figure():
     )
 
     # Label for the mapping
-    fig.text(0.50, 0.72, r"$w = f(z)$", fontsize=13, ha="center", va="center",
+    fig.text(0.51, 0.72, r"$w = f(z)$", fontsize=13, ha="center", va="center",
              fontweight="bold")
 
     return fig
