@@ -107,3 +107,15 @@ class Presets:
     PNG_PRINT = OutputSpec(figsize=(9.5, 9.0), fmt="png", dpi=300, pad_inches=0.02)
     # Lighter raster for web/screen.
     PNG_WEB = OutputSpec(figsize=(8.0, 8.0), fmt="png", dpi=150)
+    # Wide two-panel layout for math textbook figures (sans-serif).
+    PNG_MATH_PANEL = OutputSpec(
+        figsize=(14.0, 6.5),
+        fmt="png",
+        dpi=300,
+        pad_inches=0.05,
+        rc_overrides={
+            "font.family": "sans-serif",
+            "font.sans-serif": ["DejaVu Sans", "Helvetica", "Arial", "sans-serif"],
+            "mathtext.fontset": "dejavusans",
+        },
+    )

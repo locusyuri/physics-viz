@@ -14,6 +14,7 @@ wheels/
 .qoder
 .github
 .zcode
+.trae
 
 # Generated output images (regenerated each run)
 output/  
