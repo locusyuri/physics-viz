@@ -6,6 +6,9 @@ Conventions for this repository. Follow these unless explicitly told otherwise.
 
 - When generating physics model figures, default to **transparent-background PNG**.
   Other formats (SVG/PDF) only when explicitly requested.
+- **math_paper figures MUST output SVG** (use `SVG_MATH`, `SVG_MATH_PANEL`, or
+  `SVG_TEXTBOOK` presets). This overrides the PNG default for all scripts under
+  `src/math_paper/`.
 - Reuse the shared output presets in `src/_viz/output.py` (`Presets.*`) rather
   than hard-coding `figsize` / `dpi` / `facecolor` in each model script.
 - Annotations use English text. Default to serif fonts for textbook-style figures.

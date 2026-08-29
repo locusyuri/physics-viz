@@ -22,7 +22,7 @@ from _viz.output import Presets
 # --------------------------------------------------------------------------- #
 # Configuration
 # --------------------------------------------------------------------------- #
-SPEC = Presets.PNG_MATH_PANEL
+SPEC = Presets.SVG_MATH_PANEL
 OUT_DIR = Path(__file__).resolve().parent.parent.parent / "output"
 
 # Conformal mapping: f(z) = z + 0.4*z^2

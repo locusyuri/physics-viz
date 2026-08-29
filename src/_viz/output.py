@@ -119,3 +119,21 @@ class Presets:
             "mathtext.fontset": "dejavusans",
         },
     )
+    # Vector, wide two-panel layout for math figures (sans-serif).
+    SVG_MATH_PANEL = OutputSpec(
+        figsize=(14.0, 6.5), fmt="svg", pad_inches=0.05,
+        rc_overrides={
+            "font.family": "sans-serif",
+            "font.sans-serif": ["DejaVu Sans", "Helvetica", "Arial", "sans-serif"],
+            "mathtext.fontset": "dejavusans",
+        },
+    )
+    # Vector, square layout for single-panel math figures (sans-serif).
+    SVG_MATH = OutputSpec(
+        figsize=(9.5, 9.0), fmt="svg", pad_inches=0.05,
+        rc_overrides={
+            "font.family": "sans-serif",
+            "font.sans-serif": ["DejaVu Sans", "Helvetica", "Arial", "sans-serif"],
+            "mathtext.fontset": "dejavusans",
+        },
+    )

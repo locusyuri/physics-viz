@@ -32,7 +32,7 @@ Z_SCALE = 1.0          # height per radian
 ELEV, AZIM = 22, -55
 
 SPEC = OutputSpec(
-    figsize=(9.5, 9.0), fmt="png", dpi=300, pad_inches=0.05,
+    figsize=(9.5, 9.0), fmt="svg", pad_inches=0.05,
     transparent=False, facecolor="white",
 )
 

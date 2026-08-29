@@ -1,6 +1,6 @@
 ---
 name: math-function-figures
-description: Generate mathematical function visualizations: single-variable functions (y=f(x), parametric curves), multi-variable functions (surface plots, contour maps, vector fields), complex mappings (conformal mapping, transformations), and phase portraits. Use when plotting mathematical functions, curves, surfaces, fields, or mappings.
+description: Generate mathematical function visualizations: single-variable functions (y=f(x), parametric curves), multi-variable functions (surface plots, contour maps, vector fields), complex mappings (conformal mapping, transformations), and phase portraits. All math figures MUST output SVG. Use when plotting mathematical functions, curves, surfaces, fields, or mappings.
 ---
 
 # Math Function Figures (数学函数可视化)
@@ -29,7 +29,7 @@ description: Generate mathematical function visualizations: single-variable func
 
 ```python
 from _viz.output import Presets
-SPEC = Presets.PNG_TEXTBOOK  # 或 PNG_MATH_PANEL（无衬线）
+SPEC = Presets.SVG_TEXTBOOK  # 或 SVG_MATH_PANEL（无衬线双面板）
 
 fig = SPEC.figure()
 ax = fig.add_subplot(111)
@@ -118,7 +118,7 @@ ax.quiver(X[::step, ::step], Y[::step, ::step],
 双面板展示映射前后：
 
 ```python
-SPEC = Presets.PNG_MATH_PANEL  # 宽幅双面板
+SPEC = Presets.SVG_MATH_PANEL  # 宽幅双面板
 fig = SPEC.figure()
 
 # 左面板：z 平面
@@ -213,9 +213,9 @@ ax.contour(X, Y, F, levels=[0], colors="k", linewidths=2.0)
 
 ## 约定（来自 AGENTS.md）
 
-- 默认输出：**透明背景 PNG**，除非明确要求其他格式
-- 复用 `src/_viz/output.py` 中的 `Presets.*`
-- 数学图默认使用 **无衬线字体**：`Presets.PNG_MATH_PANEL`
+- **强制 SVG 输出**：`src/math_paper/` 下所有脚本必须输出 `.svg` 矢量格式
+- 复用 `src/_viz/output.py` 中的 `Presets.*`（SVG 系列预设）
+- 数学图默认使用 **无衬线字体**：`Presets.SVG_MATH_PANEL`
 - 所有标注文本使用 **英文**
 - 配色约定：
   - 函数曲线：蓝色 `#1f4e9b` 或绿色 `#2e8b57`
@@ -228,16 +228,16 @@ ax.contour(X, Y, F, levels=[0], colors="k", linewidths=2.0)
 
 | 预设 | 用途 | 尺寸 | 字体 |
 |------|------|------|------|
-| `PNG_MATH_PANEL` | 双面板映射图 | 14×6.5, 300dpi | 无衬线 |
-| `PNG_TEXTBOOK` | 教科书风格（单/多面板） | 14×7, 300dpi | 衬线 |
-| `PNG_PRINT` | 高分辨率方形图 | 9.5×9, 300dpi | 默认 |
-| `SVG_TEXTBOOK` | 矢量教科书风格 | 12×12 | 衬线 |
+| `SVG_MATH_PANEL` | 双面板映射图 | 14×6.5 | 无衬线 |
+| `SVG_MATH` | 单面板（方形） | 9.5×9 | 无衬线 |
+| `SVG_TEXTBOOK` | 教科书风格（衬线） | 12×12 | 衬线 |
+| `SVG_DOC` | 嵌入文档 | 9.5×9 | 默认 |
 
-**选择指南**：
-- 单面板函数图 → `PNG_TEXTBOOK` 或 `PNG_PRINT`
-- 双面板映射图 → `PNG_MATH_PANEL`
-- 3D 曲面图 → `PNG_PRINT`（方形）
-- 需要矢量格式 → `SVG_TEXTBOOK`
+**选择指南**（仅 SVG）：
+- 双面板映射图 → `SVG_MATH_PANEL`
+- 单面板函数图 / 概念图 → `SVG_MATH`
+- 3D 曲面图 → `SVG_MATH`（方形）
+- 衬线教科书风格 → `SVG_TEXTBOOK`
 
 ## 常见数学图片类型速查
 
@@ -297,7 +297,7 @@ from _viz.output import Presets
 # --------------------------------------------------------------------------- #
 # 配置
 # --------------------------------------------------------------------------- #
-SPEC = Presets.PNG_TEXTBOOK  # 或 PNG_MATH_PANEL
+SPEC = Presets.SVG_MATH  # 或 SVG_MATH_PANEL（双面板）
 OUT_DIR = Path(__file__).resolve().parent.parent.parent / "output"
 
 # 数学定义

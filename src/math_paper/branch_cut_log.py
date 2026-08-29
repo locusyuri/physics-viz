@@ -25,7 +25,7 @@ from _viz.output import Presets
 # --------------------------------------------------------------------------- #
 # Configuration
 # --------------------------------------------------------------------------- #
-SPEC = Presets.PNG_PRINT  # Square format
+SPEC = Presets.SVG_MATH  # Square format
 OUT_DIR = Path(__file__).resolve().parent.parent.parent / "output"
 
 # Sample point

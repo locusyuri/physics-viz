@@ -20,7 +20,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from _viz.output import Presets
 
-SPEC = Presets.PNG_TEXTBOOK
+SPEC = Presets.SVG_TEXTBOOK
 OUT_DIR = Path(__file__).resolve().parent.parent.parent / "output"
 
 BLU = "#1f4e9b"
