@@ -15,6 +15,7 @@ wheels/
 .github
 .zcode
 .trae
+.codebuddy
 
 # Generated output images (regenerated each run)
 output/  
